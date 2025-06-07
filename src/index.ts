@@ -1,5 +1,7 @@
 import { fetchData } from './fetchData';
 import { sendWebhook } from './discordWebhook';
+import { saveContributorsData } from './saveData';
+import { commitAndPushData } from './gitOps';
 import { Contributor } from './types';
 import { FANDOM_SUBDOMAIN, EMBED_COLOR, TOP_N_CONTRIBUTORS } from './config';
 
@@ -13,9 +15,12 @@ function extractAvatarUrl(avatarHtml: string): string | undefined {
 async function main() {
     try {
         const data = await fetchData();
-        // console.log('Fetched data:', data); // Debug: see the structure
         const contributors = data.contributors;
+        
         if (contributors && contributors.length > 0) {
+            await saveContributorsData(contributors);
+            await commitAndPushData();
+            
             const numberOfContributorsToShow = Math.min(contributors.length, TOP_N_CONTRIBUTORS, 29);
             const topContributors = contributors.slice(0, numberOfContributorsToShow);
 
