@@ -29,6 +29,8 @@ async function main() {
             const month = String(now.getMonth() + 1).padStart(2, '0'); // JavaScript months are 0 indexed
             const year = now.getFullYear();
             const formattedDateString = `Week ending ${day}/${month}/${year}`;
+            const recapDate = `${year}-${month}-${day}`;
+            const recapUrl = `https://ae.tds-editor.com/recap/?date=${recapDate}`;
 
             const embed = {
                 title: `Top ${topContributors.length} Contributors`,
@@ -43,9 +45,8 @@ async function main() {
                     };
                 }),
                 thumbnail: topContributors.length > 0 ? { url: extractAvatarUrl(topContributors[0].avatar) } : undefined,
-                timestamp: new Date().toISOString(),
                 footer: {
-                    text: formattedDateString
+                    text: `${formattedDateString} • [View full recap](${recapUrl})`
                 },
                 color: EMBED_COLOR,
             };
