@@ -34,6 +34,7 @@ async function main() {
 
             const embed = {
                 title: `Top ${topContributors.length} Contributors`,
+                description: "🏆 Type `/synctop5` to receive your contributor roles!",
                 url: "https://github.com/Paradoxum-Wikis/Fandom-Top-Contributors",
                 fields: [
                     ...topContributors.map((c: Contributor, i: number) => {
