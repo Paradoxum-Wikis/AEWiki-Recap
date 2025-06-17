@@ -31,3 +31,31 @@ jobs:
           FANDOM_SUBDOMAIN: ${{ vars.FANDOM_SUBDOMAIN }}
           EMBED_COLOR: ${{ vars.EMBED_COLOR }}
           TOP_N_CONTRIBUTORS: ${{ vars.TOP_N_CONTRIBUTORS }}
+
+      - name: Notify ALTERSHAPER  of Recap Update
+        if: success()
+        run: |
+          echo "🔔 Notifying ALTERSHAPER of recap data update..."
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${{ vars.PUBLIC_URL }}/webhook/recap-update" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.BOT_WEBHOOK_SECRET }}" \
+            -d '{
+              "event": "recap_updated", 
+              "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+              "repository": "'${{ github.repository }}'",
+              "ref": "'${{ github.ref }}'",
+              "commit": "'${{ github.sha }}'"
+            }')
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          
+          if [ "$HTTP_CODE" -eq 200 ]; then
+            echo "✅ ALTERSHAPER notified successfully"
+            echo "Response: $BODY"
+          else
+            echo "❌ Failed to notify ALTERSHAPER (HTTP $HTTP_CODE)"
+            echo "Response: $BODY"
+            exit 1
+          fi
