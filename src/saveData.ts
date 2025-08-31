@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Contributor } from './types';
+import { Contributor } from './types.js';
 
 export async function saveContributorsData(contributors: Contributor[]): Promise<void> {
     try {

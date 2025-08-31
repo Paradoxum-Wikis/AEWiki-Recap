@@ -1,9 +1,9 @@
-import { fetchData } from './fetchData';
-import { sendWebhook } from './discordWebhook';
-import { saveContributorsData } from './saveData';
-import { commitAndPushData } from './gitOps';
-import { Contributor } from './types';
-import { FANDOM_SUBDOMAIN, EMBED_COLOR, TOP_N_CONTRIBUTORS } from './config';
+import { fetchData } from './fetchData.js';
+import { sendWebhook } from './discordWebhook.js';
+import { saveContributorsData } from './saveData.js';
+import { commitAndPushData } from './gitOps.js';
+import { Contributor } from './types.js';
+import { FANDOM_SUBDOMAIN, EMBED_COLOR, TOP_N_CONTRIBUTORS } from './config.js';
 
 // Extract image URL from avatar HTML
 function extractAvatarUrl(avatarHtml: string): string | undefined {

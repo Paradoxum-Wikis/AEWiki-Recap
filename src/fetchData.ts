@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { FeedResponse } from './types';
-import { FANDOM_SUBDOMAIN } from './config';
+import { FeedResponse } from './types.js';
+import { FANDOM_SUBDOMAIN } from './config.js';
 
 const API_PATH = '/wikia.php?controller=CommunityPageController&method=getTopContributorsData&format=json&uselang=en';
 const DATA_URL = `https://${FANDOM_SUBDOMAIN}.fandom.com${API_PATH}`;
