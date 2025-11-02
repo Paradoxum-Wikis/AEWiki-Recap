@@ -1,4 +1,4 @@
-import { WEBHOOK_URL } from './config';
+import { WEBHOOK_URL } from './config.js';
 
 export const sendWebhook = async (payload: any) => {
     if (!WEBHOOK_URL) {
